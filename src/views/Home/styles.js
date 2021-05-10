@@ -1,14 +1,12 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        alignItems: 'center',
-        justifyContent: 'center'
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+});
 
-    }
-
-})
-
-export default styles
+export default styles;
