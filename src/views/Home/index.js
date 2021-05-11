@@ -77,7 +77,12 @@ export default function Home() {
         >
           {tasks.map(item => {
             return (
-              <TaskCard key={item._id} title={item.title} when={item.when} />
+              <TaskCard
+                key={item._id}
+                type={item.type}
+                title={item.title}
+                when={item.when}
+              />
             );
           })}
         </ScrollView>
