@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
@@ -20,25 +21,42 @@ import api from '../../services/api';
 import filterItens from '../../utils/filterItens';
 
 export default function Home() {
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState('all');
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [lateCount, setLateCount] = useState();
 
   async function loadTasks() {
-    await api.get('/task/filter/all/11:11:11:11:11:11').then(response => {
+    await api.get(`/task/filter/${filter}/11:11:11:11:11:11`).then(response => {
       setTasks(response.data);
       setLoading(false);
     });
   }
 
+  async function lateVerify() {
+    await api.get(`/task/filter/late/11:11:11:11:11:11`).then(response => {
+      setLateCount(response.data.length);
+    });
+  }
+
+  function notification() {
+    setFilter('late');
+  }
+
   useEffect(() => {
     setLoading(true);
     loadTasks();
+    lateVerify();
   }, [filter]);
 
   return (
     <View style={styles.container}>
-      <Header showNotification />
+      <Header
+        ShowNotification
+        showBack={false}
+        pressNotification={notification}
+        late={lateCount}
+      />
 
       <View style={styles.filter}>
         {filterItens.map(item => (
@@ -60,7 +78,9 @@ export default function Home() {
       </View>
 
       <View style={styles.title}>
-        <Text style={styles.titleText}>TAREFAS</Text>
+        <Text style={styles.titleText}>
+          TAREAS {filter === 'late' && ' ATRASADAS'}
+        </Text>
       </View>
 
       {loading ? (

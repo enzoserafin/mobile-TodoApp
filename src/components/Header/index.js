@@ -9,7 +9,12 @@ import bell from '../../assets/bell.png';
 import qrcode from '../../assets/qrcode.png';
 import back from '../../assets/back.png';
 
-export default function Header({ showBack, ShowNotification }) {
+export default function Header({
+  showBack,
+  ShowNotification,
+  pressNotification,
+  late,
+}) {
   return (
     <View style={styles.header}>
       {showBack ? (
@@ -24,11 +29,14 @@ export default function Header({ showBack, ShowNotification }) {
 
       <Image source={logo} stule={styles.logo} />
 
-      {ShowNotification && (
-        <TouchableOpacity style={styles.notification}>
+      {ShowNotification && late > 0 && (
+        <TouchableOpacity
+          style={styles.notification}
+          onPress={pressNotification}
+        >
           <Image source={bell} style={styles.notificationImage} />
           <View style={styles.circle}>
-            <Text style={styles.notificationText}>3</Text>
+            <Text style={styles.notificationText}>{late}</Text>
           </View>
         </TouchableOpacity>
       )}
