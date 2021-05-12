@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
   View,
@@ -13,63 +14,51 @@ import styles from './styles';
 import iconCalendar from '../../assets/calendar.png';
 import iconClock from '../../assets/clock.png';
 
-export default function DateTimePickerComponent() {
+export default function DateTimePickerComponent({ type }) {
   const [date, setDate] = useState();
-  const [hour, setHour] = useState();
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [modePicker, setModePicker] = useState('date');
+  const [showPicker, setShowPicker] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    if (mode === 'date') setDate(format(new Date(currentDate), 'dd/MM/yyyy'));
-    else setHour(format(new Date(currentDate), 'HH:mm'));
+    setShowPicker(Platform.OS === 'ios');
+    if (modePicker === 'date')
+      setDate(format(new Date(currentDate), 'dd/MM/yyyy'));
+    else setDate(format(new Date(currentDate), 'HH:mm'));
   };
 
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
+  function showDataPicker() {
+    setShowPicker(true);
+    setModePicker(type);
+  }
 
   return (
     <View>
       <View>
-        <TouchableOpacity onPress={showDatepicker}>
+        <TouchableOpacity onPress={showDataPicker}>
           <TextInput
             style={styles.input}
-            placeholder="Clique aqui para definir a data..."
+            placeholder={
+              type === 'date'
+                ? 'Clique aqui para definir a data...'
+                : 'Clique aqui para definir a hora...'
+            }
             editable={false}
             value={date}
           />
-          <Image style={styles.iconTextInput} source={iconCalendar} />
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity onPress={showTimepicker}>
-          <TextInput
-            style={styles.input}
-            placeholder="Clique aqui para definir a hora..."
-            editable={false}
-            value={hour}
+          <Image
+            style={styles.iconTextInput}
+            source={type === 'date' ? iconCalendar : iconClock}
           />
-          <Image style={styles.iconTextInput} source={iconClock} />
         </TouchableOpacity>
       </View>
-      {show && (
+      {showPicker && (
         <DateTimePicker
-          // testID="dateTimePicker"
           value={new Date()}
-          mode={mode}
+          mode={modePicker}
           is24Hour
           display="default"
+          minimumDate={new Date()}
           onChange={onChange}
         />
       )}
