@@ -13,6 +13,7 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import typeIcons from '../../utils/typeIcons';
+import DateTimeInput from '../../components/DateTimeInput';
 import styles from './styles';
 
 export default function Task() {
@@ -29,7 +30,7 @@ export default function Task() {
           {typeIcons.map(
             icon =>
               icon != null && (
-                <TouchableOpacity>
+                <TouchableOpacity key={icon}>
                   <Image source={icon} style={styles.imageIcon} />
                 </TouchableOpacity>
               ),
@@ -50,6 +51,8 @@ export default function Task() {
           multiline
           placeholder="Detalhes da atividade que eu tenho que lembrar..."
         />
+
+        <DateTimeInput />
 
         <View style={styles.inLine}>
           <View style={styles.inputInLine}>
