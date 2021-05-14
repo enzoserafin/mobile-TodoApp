@@ -7,10 +7,10 @@ import styles from './styles';
 import add from '../../assets/add.png';
 import save from '../../assets/save.png';
 
-export default function Footer({ isEditing }) {
+export default function Footer({ isEditing, onPress }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.icon}>
+      <TouchableOpacity style={styles.icon} onPress={onPress}>
         <Image source={isEditing ? save : add} style={styles.iconImage} />
       </TouchableOpacity>
 

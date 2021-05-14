@@ -14,15 +14,22 @@ export default function Header({
   ShowNotification,
   pressNotification,
   late,
+  navigation,
 }) {
   return (
     <View style={styles.header}>
       {showBack ? (
-        <TouchableOpacity style={styles.leftIcon}>
+        <TouchableOpacity
+          style={styles.leftIcon}
+          onPress={() => navigation.navigate('Home')}
+        >
           <Image source={back} style={styles.leftIconImage} />
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.leftIcon}>
+        <TouchableOpacity
+          style={styles.leftIcon}
+          onPress={() => navigation.navigate('QrCode')}
+        >
           <Image source={qrcode} style={styles.leftIconImage} />
         </TouchableOpacity>
       )}

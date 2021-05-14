@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
@@ -9,6 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import styles from './styles';
@@ -16,37 +18,56 @@ import styles from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import TaskCard from '../../components/TaskCard';
+import getDeviceId from '../../utils/getDeviceId';
 import api from '../../services/api';
 
 import filterItens from '../../utils/filterItens';
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [filter, setFilter] = useState('all');
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lateCount, setLateCount] = useState();
 
-  async function loadTasks() {
-    await api.get(`/task/filter/${filter}/11:11:11:11:11:11`).then(response => {
-      setTasks(response.data);
-      setLoading(false);
-    });
+  function loadTasks(deviceId) {
+    setLoading(true);
+    api
+      .get(`/task/filter/${filter}/${deviceId}`)
+      .then(response => {
+        setTasks(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        Alert.alert(err);
+      });
   }
 
-  async function lateVerify() {
-    await api.get(`/task/filter/late/11:11:11:11:11:11`).then(response => {
+  async function lateVerify(deviceId) {
+    try {
+      const response = await api.get(`/task/filter/late/${deviceId}`);
       setLateCount(response.data.length);
-    });
+    } catch (e) {
+      Alert.alert(e);
+    }
   }
 
   function notification() {
     setFilter('late');
   }
 
+  function newTask() {
+    navigation.navigate('Task');
+  }
+
+  function show(id) {
+    navigation.navigate('Task', { idTask: id });
+  }
+
   useEffect(() => {
-    setLoading(true);
-    loadTasks();
-    lateVerify();
+    getDeviceId().then(deviceId => {
+      loadTasks(deviceId);
+      lateVerify(deviceId);
+    });
   }, [filter]);
 
   return (
@@ -56,6 +77,7 @@ export default function Home() {
         showBack={false}
         pressNotification={notification}
         late={lateCount}
+        navigation={navigation}
       />
 
       <View style={styles.filter}>
@@ -99,16 +121,18 @@ export default function Home() {
             return (
               <TaskCard
                 key={item._id}
+                done={item.done}
                 type={item.type}
                 title={item.title}
                 when={item.when}
+                onPress={() => show(item._id)}
               />
             );
           })}
         </ScrollView>
       )}
 
-      <Footer isEditing />
+      <Footer isEditing={false} onPress={newTask} />
     </View>
   );
 }

@@ -7,9 +7,12 @@ import styles from './styles';
 
 import typeIcons from '../../utils/typeIcons';
 
-export default function TaskCard({ type, done, title, when }) {
+export default function TaskCard({ type, done, title, when, onPress }) {
   return (
-    <TouchableOpacity style={[styles.card, done && styles.cardDone]}>
+    <TouchableOpacity
+      style={[styles.card, done && styles.cardDone]}
+      onPress={onPress}
+    >
       <View style={styles.cardLeft}>
         <Image source={typeIcons[type]} style={styles.typeActive} />
         <Text style={styles.cardTitle}>{title}</Text>

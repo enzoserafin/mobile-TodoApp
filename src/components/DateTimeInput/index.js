@@ -1,30 +1,48 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Platform,
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { format } from 'date-fns';
+import { format, isPast } from 'date-fns';
 import styles from './styles';
 
 import iconCalendar from '../../assets/calendar.png';
 import iconClock from '../../assets/clock.png';
 
-export default function DateTimePickerComponent({ type }) {
-  const [date, setDate] = useState();
+export default function DateTimePickerComponent({ type, save, date, hour }) {
+  const [dateTime, setDateTime] = useState();
   const [modePicker, setModePicker] = useState('date');
   const [showPicker, setShowPicker] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+  useEffect(() => {
+    if (type === 'date' && date) {
+      setDateTime(format(new Date(date), 'dd/MM/yyyy'));
+    }
+
+    if (type === 'time' && hour) {
+      setDateTime(format(new Date(hour), 'HH:mm'));
+    }
+  }, []);
+
+  const onChange = (_, selectedDate) => {
+    const currentDate = selectedDate || dateTime;
     setShowPicker(Platform.OS === 'ios');
-    if (modePicker === 'date')
-      setDate(format(new Date(currentDate), 'dd/MM/yyyy'));
-    else setDate(format(new Date(currentDate), 'HH:mm'));
+    if (modePicker === 'date') {
+      if (isPast(new Date(currentDate, 24, 59, 59, 0)))
+        Alert.alert('Você não pode escolher uma data passada');
+      setDateTime(format(new Date(currentDate), 'dd/MM/yyyy'));
+      save(format(new Date(currentDate), 'yyy-MM-dd'));
+    } else {
+      setDateTime(format(new Date(currentDate), 'HH:mm'));
+      save(format(new Date(currentDate), 'HH:mm'));
+    }
   };
 
   function showDataPicker() {
@@ -44,7 +62,7 @@ export default function DateTimePickerComponent({ type }) {
                 : 'Clique aqui para definir a hora...'
             }
             editable={false}
-            value={date}
+            value={dateTime}
           />
           <Image
             style={styles.iconTextInput}

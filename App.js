@@ -1,7 +1,7 @@
 import React from 'react';
+
 import { SafeAreaView, StatusBar } from 'react-native';
-// import Home from '°./src/views/Home';
-import Task from './src/views/Task';
+import Routes from './src/routes';
 
 export default function App() {
   return (
@@ -9,7 +9,7 @@ export default function App() {
       <SafeAreaView backgrounßdColor="#20295F">
         <StatusBar barStyle="light-content" backgroundColor="#20295F" />
       </SafeAreaView>
-      <Task />
+      <Routes />
     </>
   );
 }
