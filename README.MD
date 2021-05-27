@@ -84,7 +84,7 @@ $ npm install
 $ npm start
 
 ```
-Será aberta uma aba no bavegador padrão com o dashboard do expo. 
+Será aberta uma aba no navegador padrão com o dashboard do expo. 
 O aplicativo pode rodar no emulador de sua preferência ou no seu device físco, sendo nescessário baixar o app expo e ler o QRCODE no dashboard do expo.
 
 ---
