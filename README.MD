@@ -93,9 +93,8 @@ O aplicativo pode rodar no emulador de sua preferência ou no seu device físco,
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-#### **Website**  ([React](https://reactjs.org/))
+#### **Mobile**  ([React Native](https://reactnative.dev/))
 
--   **[React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)**
 -   **[Axios](https://github.com/axios/axios)**
 -   **[Date-fns](https://www.npmjs.com/package/date-fns)**
 -   **[Expo](https://expo.io/)**
