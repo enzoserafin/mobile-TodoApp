@@ -1,10 +1,10 @@
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/enzoserafin/frontend-TodoApp?color=%2304D361">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/enzoserafin/mobile-TodoApp?color=%2304D361">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/enzoserafin/frontend-TodoApp">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/enzoserafin/mobile-TodoApp">
 
-  <a href="https://github.com/enzoserafin/frontend-TodoApp/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/enzoserafin/frontend-TodoApp">
+  <a href="https://github.com/enzoserafin/mobile-TodoApp/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/enzoserafin/mobile-TodoApp">
   </a>
 
   <a href="https://github.com/enzoserafin">
@@ -13,7 +13,7 @@
 </p>
 
 <h1 align="center">
-    Frontend Todo App
+    Mobile Todo App
 </h1>
 
 <p align="center">
@@ -57,7 +57,7 @@ Este projeto é divido em três partes:
 2. Frontend
 3. Mobile
 
-Neste respositório há somente o Frontend
+Neste respositório há somente o Mobile
 
 💡Tanto o Frontend quanto o Mobile precisam que o Backend esteja sendo executado para funcionar.
 
@@ -72,10 +72,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 ```bash
 
 # Clone este repositório
-$ git clone git@github.com:enzoserafin/frontend-TodoApp.git
+$ git clone git@github.com:enzoserafin/mobile-TodoApp.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd web
+$ cd mobile
 
 # Instale as dependências
 $ npm install
@@ -83,9 +83,9 @@ $ npm install
 # Execute a aplicação em modo de desenvolvimento
 $ npm start
 
-# A aplicação será aberta na porta:3000 - acesse http://localhost:3000
-
 ```
+Será aberta uma aba no bavegador padrão com o dashboard do expo. 
+O aplicativo pode rodar no emulador de sua preferência ou no seu device físco, sendo nescessário baixar o app expo e ler o QRCODE no dashboard do expo.
 
 ---
 
@@ -98,12 +98,12 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **[React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)**
 -   **[Axios](https://github.com/axios/axios)**
 -   **[Date-fns](https://www.npmjs.com/package/date-fns)**
--   **[Qrcode.react](https://www.npmjs.com/package/qrcode.react)**
--   **[styled-components](https://github.com/styled-components/styled-components)**
+-   **[Expo](https://expo.io/)**
+-   **[datetimepicker](https://github.com/react-native-datetimepicker/datetimepicker)**
 
-> Veja o arquivo  [package.json](https://github.com/enzoserafin/frontend-TodoApp/blob/master/package.json)
+> Veja o arquivo  [package.json](https://github.com/enzoserafin/mobile-TodoApp/blob/main/package.json)
 
-#### [](https://github.com/enzoserafin/frontend-TodoApp)**Utilitários**
+#### [](https://github.com/enzoserafin/mobile-TodoApp)**Utilitários**
 
 -   Editor:  **[Visual Studio Code](https://code.visualstudio.com/)**
 
