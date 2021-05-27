@@ -1,4 +1,4 @@
-import Platform from 'react-native';
+import { Platform } from 'react-native';
 import * as Application from 'expo-application';
 
 async function getDeviceId() {
@@ -6,6 +6,7 @@ async function getDeviceId() {
     const iosId = await Application.getIosIdForVendorAsync();
     return iosId;
   }
+
   const androidID = Application.androidId;
   return androidID;
 }

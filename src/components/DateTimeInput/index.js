@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
+  Text,
   Platform,
   TouchableOpacity,
   TextInput,
@@ -24,15 +25,21 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
   useEffect(() => {
     if (type === 'date' && date) {
       setDateTime(format(new Date(date), 'dd/MM/yyyy'));
+      save(format(new Date(date), 'yyy-MM-dd'));
     }
 
     if (type === 'time' && hour) {
       setDateTime(format(new Date(hour), 'HH:mm'));
+      save(format(new Date(hour), 'HH:mm'));
     }
   }, []);
 
   const onChange = (_, selectedDate) => {
-    const currentDate = selectedDate || dateTime;
+    if (selectedDate === undefined) {
+      setShowPicker(Platform.OS === 'ios');
+      return;
+    }
+    const currentDate = selectedDate || new Date();
     setShowPicker(Platform.OS === 'ios');
     if (modePicker === 'date') {
       if (isPast(new Date(currentDate, 24, 59, 59, 0)))
@@ -48,6 +55,10 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
   function showDataPicker() {
     setShowPicker(true);
     setModePicker(type);
+  }
+
+  function closePicker() {
+    setShowPicker(false);
   }
 
   return (
@@ -70,12 +81,17 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
           />
         </TouchableOpacity>
       </View>
+      {showPicker && Platform.OS === 'ios' && (
+        <TouchableOpacity onPress={closePicker}>
+          <Text style={styles.textCloseButton}>Fechar</Text>
+        </TouchableOpacity>
+      )}
       {showPicker && (
         <DateTimePicker
           value={new Date()}
           mode={modePicker}
           is24Hour
-          display="default"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           minimumDate={new Date()}
           onChange={onChange}
         />

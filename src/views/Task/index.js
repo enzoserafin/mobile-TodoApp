@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
@@ -90,9 +91,9 @@ export default function Task({ navigation }) {
     }
   }
 
-  async function loadTask() {
+  async function loadTask(idTask) {
     await api
-      .get(`/task/${id}`)
+      .get(`/task/${idTask}`)
       .then(response => {
         setLoad(true);
         setDone(response.data.done);
@@ -117,7 +118,10 @@ export default function Task({ navigation }) {
     Alert.alert(
       'Remover Tarefa',
       'Deseja remover essa tarefa?',
-      [{ text: 'Cancelar' }, { text: 'Confirmar', onPress: deleteTask() }],
+      [
+        { text: 'Cancelar' },
+        { text: 'Confirmar', onPress: () => deleteTask() },
+      ],
       { cancelable: true },
     );
   }
@@ -130,9 +134,9 @@ export default function Task({ navigation }) {
 
     if (navigation.state.params) {
       setId(navigation.state.params.idTask);
-      loadTask().then(() => setLoad(false));
+      loadTask(navigation.state.params.idTask).then(() => setLoad(false));
     }
-  }, [deviceId]);
+  }, []);
 
   return (
     <KeyboardAvoidingView

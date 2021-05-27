@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
     height: 25,
     resizeMode: 'contain',
   },
+  textCloseButton: {
+    fontSize: 18,
+    color: '#EE6B26',
+    textAlign: 'center',
+  },
 });
 
 export default styles;
