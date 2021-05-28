@@ -18,18 +18,19 @@ import iconCalendar from '../../assets/calendar.png';
 import iconClock from '../../assets/clock.png';
 
 export default function DateTimePickerComponent({ type, save, date, hour }) {
-  const [dateTime, setDateTime] = useState();
+  const [inputDate, setInputDate] = useState();
+  const [dateTime, setDateTime] = useState(new Date());
   const [modePicker, setModePicker] = useState('date');
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
     if (type === 'date' && date) {
-      setDateTime(format(new Date(date), 'dd/MM/yyyy'));
+      setInputDate(format(new Date(date), 'dd/MM/yyyy'));
       save(format(new Date(date), 'yyy-MM-dd'));
     }
 
     if (type === 'time' && hour) {
-      setDateTime(format(new Date(hour), 'HH:mm'));
+      setInputDate(format(new Date(hour), 'HH:mm'));
       save(format(new Date(hour), 'HH:mm'));
     }
   }, []);
@@ -44,10 +45,12 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
     if (modePicker === 'date') {
       if (isPast(new Date(currentDate, 24, 59, 59, 0)))
         Alert.alert('Você não pode escolher uma data passada');
-      setDateTime(format(new Date(currentDate), 'dd/MM/yyyy'));
+      setInputDate(format(new Date(currentDate), 'dd/MM/yyyy'));
+      setDateTime(currentDate);
       save(format(new Date(currentDate), 'yyy-MM-dd'));
     } else {
-      setDateTime(format(new Date(currentDate), 'HH:mm'));
+      setInputDate(format(new Date(currentDate), 'HH:mm'));
+      setDateTime(currentDate);
       save(format(new Date(currentDate), 'HH:mm'));
     }
   };
@@ -73,7 +76,7 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
                 : 'Clique aqui para definir a hora...'
             }
             editable={false}
-            value={dateTime}
+            value={inputDate}
           />
           <Image
             style={styles.iconTextInput}
@@ -88,7 +91,7 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
       )}
       {showPicker && (
         <DateTimePicker
-          value={new Date()}
+          value={dateTime}
           mode={modePicker}
           is24Hour
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
