@@ -64,9 +64,9 @@ export default function Home({ navigation }) {
   }
 
   useEffect(() => {
-    getDeviceId().then(deviceId => {
-      loadTasks(deviceId);
-      lateVerify(deviceId);
+    getDeviceId().then(result => {
+      loadTasks(result);
+      lateVerify(result);
     });
   }, [filter]);
 
