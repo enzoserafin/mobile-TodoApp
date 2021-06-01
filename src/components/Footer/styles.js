@@ -1,9 +1,10 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Platform.OS === 'ios' ? 90 : 70,
+    height: getBottomSpace() + 70,
     backgroundColor: '#20295F',
     position: 'absolute',
     bottom: 0,

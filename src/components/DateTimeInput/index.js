@@ -49,6 +49,8 @@ export default function DateTimePickerComponent({ type, save, date, hour }) {
       setDateTime(currentDate);
       save(format(new Date(currentDate), 'yyy-MM-dd'));
     } else {
+      if (isPast(new Date(currentDate)))
+        Alert.alert('Você não pode escolher uma hora passada');
       setInputDate(format(new Date(currentDate), 'HH:mm'));
       setDateTime(currentDate);
       save(format(new Date(currentDate), 'HH:mm'));

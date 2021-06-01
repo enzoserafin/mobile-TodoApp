@@ -6,7 +6,7 @@ import Routes from './src/routes';
 export default function App() {
   return (
     <>
-      <SafeAreaView backgrounßdColor="#20295F">
+      <SafeAreaView backgroundColor="#20295F">
         <StatusBar barStyle="light-content" backgroundColor="#20295F" />
       </SafeAreaView>
       <Routes />

@@ -127,6 +127,7 @@ export default function Task({ navigation }) {
   }
 
   useEffect(() => {
+    setLoad(true);
     getDeviceId().then(result => {
       setDeviceId(result);
       setLoad(false);
